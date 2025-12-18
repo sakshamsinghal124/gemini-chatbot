@@ -1,0 +1,16 @@
+import pdf from "pdf-parse";
+
+export async function extractText(file) {
+  if (!file) return "";
+
+  if (file.mimetype === "application/pdf") {
+    const data = await pdf(file.buffer);
+    return data.text;
+  }
+
+  if (file.mimetype === "text/plain") {
+    return file.buffer.toString("utf-8");
+  }
+
+  return "";
+}

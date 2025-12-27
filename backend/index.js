@@ -6,7 +6,6 @@ import { extractText } from "./fileHandlers.js";
 import { generateResponse, resetState } from "./gemini.js";
 
 dotenv.config();
-
 const app = express();
 const upload = multer();
 
@@ -14,15 +13,26 @@ app.use(cors());
 app.use(express.json());
 
 let chatState = resetState();
-
 app.post("/chat", async (req, res) => {
-  const { message } = req.body;
+  try {
+    console.log("Incoming body:", req.body);
 
-  chatState.messages.push({ role: "user", content: message });
-  const reply = await generateResponse(chatState);
-  chatState.messages.push({ role: "model", content: reply });
+    const { message } = req.body;
+    if (!message) {
+      return res.status(400).json({ error: "Message missing" });
+    }
 
-  res.json({ reply });
+    chatState.messages.push({ role: "user", content: message });
+
+    const reply = await generateResponse(chatState);
+
+    chatState.messages.push({ role: "model", content: reply });
+
+    res.json({ reply });
+  } catch (err) {
+    console.error("CHAT ROUTE ERROR:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.post("/upload/document", upload.single("file"), async (req, res) => {

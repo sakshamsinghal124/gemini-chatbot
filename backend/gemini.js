@@ -7,20 +7,31 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 export async function generateResponse(state) {
   const model = genAI.getGenerativeModel({
-    model: "gemini-pro",
+    model: "gemini-1.5-flash",
   });
 
-  let prompt = "";
+  const parts = [];
 
   if (state.documentText) {
-    prompt += `DOCUMENT:\n${state.documentText}\n\n`;
+    parts.push({ text: `DOCUMENT:\n${state.documentText}\n\n` });
+  }
+
+  if (state.image) {
+    parts.push({ text: "IMAGE:\n" });
+    parts.push({
+      inlineData: {
+        mimeType: state.image.mimetype,
+        data: state.image.data,
+      },
+    });
+    parts.push({ text: "\n\n" });
   }
 
   state.messages.forEach((m) => {
-    prompt += `${m.role.toUpperCase()}: ${m.content}\n`;
+    parts.push({ text: `${m.role.toUpperCase()}: ${m.content}\n` });
   });
 
-  const result = await model.generateContent(prompt);
+  const result = await model.generateContent(parts);
   return result.response.text();
 }
 

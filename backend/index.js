@@ -41,7 +41,10 @@ app.post("/upload/document", upload.single("file"), async (req, res) => {
 });
 
 app.post("/upload/image", upload.single("image"), (req, res) => {
-  chatState.image = req.file.buffer.toString("base64");
+  chatState.image = {
+    data: req.file.buffer.toString("base64"),
+    mimetype: req.file.mimetype,
+  };
   res.json({ message: "Image uploaded" });
 });
 

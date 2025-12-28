@@ -2,7 +2,7 @@
 A full-stack chatbot application built using React (Vite) for the frontend and Node.js + Express for the backend.
 The chatbot integrates with Google Gemini API for AI-powered responses and supports document and image uploads.
 
-Features
+#Features
 
 Chat interface with real-time responses
 
@@ -16,7 +16,7 @@ Clean frontend–backend separation
 
 Error handling and fallback for demo reliability
 
- Tech Stack
+#Tech Stack
 
 Frontend
 
@@ -37,6 +37,7 @@ Multer (file uploads)
 Google Gemini API (Generative Language API)
 
  Installation
+ 
 1️⃣ Clone the repository
 git clone https://github.com/your-username/gemini-chatbot.git
 cd gemini-chatbot
@@ -53,11 +54,11 @@ Setting Up Gemini API Key
 Step 1: Create API Key
 
 Go to Google AI Studio
-👉 https://aistudio.google.com/app/apikey
+ https://aistudio.google.com/app/apikey
 
 Create a new API key
 
-⚠️ The Gemini API requires the Generative Language API to be enabled in Google Cloud Console.
+ The Gemini API requires the Generative Language API to be enabled in Google Cloud Console.
 
 Step 2: Add .env file (Backend)
 
@@ -66,10 +67,10 @@ Inside the backend/ folder, create a file named .env:
 GOOGLE_API_KEY=your_gemini_api_key_here
 
 
-❗ Do not wrap the key in quotes
-❗ Do not commit .env to GitHub
+ Do not wrap the key in quotes
+ Do not commit .env to GitHub
 
-▶️ Running the Application
+ Running the Application
 Start Backend Server
 cd backend
 node index.js
@@ -94,7 +95,7 @@ Local: http://localhost:5173/
 Open in Browser
 http://localhost:5173
 
-🧪 Example Usage
+ Example Usage
 
 Type a message in the chat input
 

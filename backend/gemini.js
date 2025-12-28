@@ -34,7 +34,6 @@ export async function generateResponse(state) {
   const result = await model.generateContent(parts);
   return result.response.text();
 }
-
 export function resetState() {
   return {
     messages: [],
